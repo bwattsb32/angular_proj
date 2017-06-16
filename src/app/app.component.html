@@ -1,0 +1,12 @@
+<div class="banner">{{securityMessage}}</div>
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger"></label>
+<app-menu></app-menu>
+<div class="site-wrap">
+  <div class="main">
+    <router-outlet></router-outlet>
+    <z2c-kicker position="top-right" timeout="6000"></z2c-kicker>
+    <z2c-modal></z2c-modal>
+  </div>
+</div>
+<div class="footer"><span> {{footerMessage}}</span></div>

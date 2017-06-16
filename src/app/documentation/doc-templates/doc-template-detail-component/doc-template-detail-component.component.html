@@ -1,0 +1,18 @@
+<div class="container-fluid">
+    <h3>Generate Report</h3>
+    <hr>
+    <div *ngIf="loading"><img src="./assets/images/loader.gif">{{waitMessage}}</div>
+    <div>
+        <label><strong>Template Name:</strong> </label>{{tmpName}}<br>
+
+        <span *ngIf="!loading">The document has been generated. Click below to download or view.<br>
+            <!-- THIS IS A TEMPORARY SOLUTION THAT NEEDS TO BE FIXED ASAP!!!!! -->
+             <br><a href='{{z2c_wiki_ws}}download/{{docRpt.docFile}}' title="Download Document"><img src="./assets/images/download-cloud.png">&nbsp;Download Document</a>
+             <a href='{{z2c_wiki_ws}}download/{{docRpt.htmlFile}}' title="Download HTML" ><img src="./assets/images/actions/33html.png">&nbsp;Download as HTML</a><br> 
+            <!-- THIS IS A TEMPORARY SOLUTION THAT NEEDS TO BE FIXED ASAP!!!!! -->    
+        </span><br>
+        <br><a routerLink="../" class="button">Return to Document Template List</a>
+        <br><br><br><br><br> 
+    </div>
+    <br><br><br><br><br>
+</div>

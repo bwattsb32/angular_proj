@@ -1,0 +1,59 @@
+<div class="container-fluid">
+  <nav class="navigation">
+    <ul class="mainmenu">
+      <li>
+        <a routerLink="/dashboard" routerLinkActive="active"><img src="./assets/images/menu/33dashboardBW.png">Dashboard</a>
+      </li>
+      <li>
+        <a routerLink="/access" routerLinkActive="active"><img src="./assets/images/menu/33accessBW.png">Access</a>
+      </li>
+      <li>
+        <a routerLink="/configuration" routerLinkActive="active"><img src="./assets/images/menu/33configurationBW.png">Configuration</a>
+      </li>
+      <li>
+        <a [routerLink]="['/inventory','all']" routerLinkActive="active">
+
+          <img src="./assets/images/menu/33inventoryBW.png">Inventory</a>
+        <ul class="submenu">
+          <li>
+            <a [routerLink]="['/inventory','hardware']" routerLinkActive="active">Hardware</a>
+
+            <ul class="submenu">
+              <li>
+                 <a [routerLink]="['/inventory',0,0,'addhardware']" routerLinkActive="active"> > Add Hardware</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a [routerLink]="['/inventory','software']" routerLinkActive="active">Software</a>
+            <ul class="submenu">
+              <li>
+                <a [routerLink]="['/inventory',0,0,'addsoftware']" routerLinkActive="active"> > Add Software</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a [routerLink]="['/inventory','virtualware']" routerLinkActive="active">Virtualware</a>
+
+            <ul class="submenu">
+              <li>
+                <a routerLink="inventory/deploy" routerLinkActive="active"> > Create VM</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a routerLink="/documentation" routerLinkActive="active"><img src="./assets/images/menu/33documentationBW.png">Documentation</a>
+        <ul class="submenu">
+          <li><a routerLink="documentation/assessments" routerLinkActive="active">Assessments</a></li>
+          <li><a routerLink="documentation/templates" routerLinkActive="active">Templates</a></li>
+          <li><a routerLink="documentation/documents" routerLinkActive="active">Documents</a></li>
+        </ul>
+      </li>
+      <li>
+        <a routerLink="/repository" routerLinkActive="active"><img src="./assets/images/menu/33repoBW.png">Repository</a>
+      </li>
+    </ul>
+  </nav>
+</div>

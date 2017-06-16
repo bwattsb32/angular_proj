@@ -1,0 +1,28 @@
+<div class="input-controls"></div>
+<div class="container-fluid">
+  <div class="column-center">
+    <hr>
+    <div *ngIf="loading"><img src="images/loader.gif" />{{waitMessage}}</div>
+    <div *ngIf="searchResults">
+
+      <ul>
+        <!--<li *ngFor="let result of searchResults" [class.selected]="result === selectedVirtualNode" (click)="onSelect(result)">-->
+        <li *ngFor="let result of searchResults">
+          <span class=badgevm>{{result["sys:fqdn"]}}</span>
+          <a routerLink="deleteVM" routerLinkActive="active" *ngIf="result['sys:deleteProtect']==='false'" on-click="deleteVirtualNode(result)"><img src="images/DeleteVM.png" align="right"></a>
+          <br>
+          <span class=badgevmdata><strong>CPU's:&nbsp;&nbsp;</strong>{{result["tag:cpus"]}}<br><strong>Memory:&nbsp;&nbsp;</strong>{{result["tag:memory"]}}</span>
+        </li>
+      </ul>
+    </div>
+    <hr>
+    <a routerLink="deploy" routerLinkActive="active"><img src="images/CreateVM.png"></a>
+  </div>
+
+  <div class="column-right">
+    <hr>
+    <center>Virtual Machines by Environment</center>
+    <base-chart class="chart" [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)"
+      (chartClick)="chartClicked($event)"></base-chart>
+  </div>
+</div>

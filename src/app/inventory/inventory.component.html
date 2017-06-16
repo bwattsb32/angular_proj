@@ -1,0 +1,98 @@
+<div class="container-fluid">
+  <div class= "column-center">
+    <h3>Inventory List - {{invType}}</h3>
+    <div *ngIf="loading"><img src="./assets/images/loader.gif" />{{waitMessage}}</div>
+    <hr>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    <hr>
+    <ul class="inventory">
+      <li class="noimage" *ngFor="let result of inventory | paginate: { itemsPerPage: 10, currentPage: p }">
+          <span *ngIf="result['sys:status']!=='inactive' && result['sys:status']!=='PENDING'"class="badge">{{result["skos:prefLabel"]}}</span>
+          <span *ngIf="result['sys:status']==='inactive'"class="badge_inActiveStatus">{{result["skos:prefLabel"]}}</span>
+          <span *ngIf="result['sys:status']==='PENDING'"class="badge_inActiveStatus">{{result["skos:prefLabel"]}}</span>
+
+          <div [ngSwitch]="result['type']">
+            <!--hardware-->
+            <div *ngSwitchCase="'sys:PhysicalNode'">
+              <img src="./assets/images/cloud-server.png">
+            </div>
+            <div *ngSwitchCase="'sys:NetworkDevice'">
+              <img src="./assets/images/Devices-network-wired-icon.png">
+            </div>
+            <div *ngSwitchCase="'sys:StorageAppliance'">
+              <img src="./assets/images/nas_backup_icon.jpg">
+            </div>
+            <div *ngSwitchCase="'sys:UPS'">
+              <img src="./assets/images/ups_icon.jpg">
+            </div>
+            <!--Software-->
+            <div *ngSwitchCase="'sys:Network'">
+              <img src="./assets/images/cloud-network-icon.png">
+            </div>
+            <div *ngSwitchCase="'sys:OperatingSystem'">
+              <img src="./assets/images/os.png">
+            </div>
+            <div *ngSwitchCase="'sys:SoftwarePackage'">
+              <img src="./assets/images/software_256.png">
+            </div>
+            <div *ngSwitchCase="'sys:ScriptPackage'">
+              <img src="./assets/images/script-icons.png">
+            </div>
+            <div *ngSwitchCase="'sys:Environment'">
+              <img src="./assets/images/cloud-environment-icon.png">
+            </div>
+            <!--VirtualNode-->
+            <div *ngSwitchCase="'sys:VirtualNode'">
+              <img src="./assets/images/virtualmachines.png">
+              <div *ngIf="result['sys:isPoweredOn']==='true'"><img src="./assets/images/on-button-icon.jpg" align="right" title="VM is Powered On"></div>
+              <div *ngIf="result['sys:isOrphaned']==='true'"><img src="./assets/images/links-icon.png" align="right" title="Orphaned VM"></div>
+            </div>
+          </div>
+
+         <span class=badgeDetail>
+           
+           <!--<strong>Type:&nbsp;&nbsp;</strong>{{result["type"]}}<br>-->
+           <strong>Alternate Label:&nbsp;&nbsp;</strong>{{result["skos:altLabel"]}}<br>
+           
+           <div *ngIf="result['type']==='sys:TemplateNode'">
+             <strong>CPUs:&nbsp;&nbsp;</strong>{{result["tag:cpus"]}}<br>
+             <strong>Memory:&nbsp;&nbsp;</strong>{{result["tag:memory"]}}<br>
+           </div>    
+           <div *ngIf="result['type']==='sys:VirtualNode'">
+             <strong>FQDN:&nbsp;&nbsp;</strong>{{result["sys:fqdn"]}}<br>
+             <strong>IP Address:&nbsp;&nbsp;</strong>{{result["tag:ipAddress"]}}<br>
+             <strong>SCAP Validation:&nbsp;&nbsp;</strong><a href='http://{{result["sys:fqdn"]}}/scap_reports' target="_blank">View SCAP Report</a><br>
+           </div>  
+           <div *ngIf="(result['type']==='sys:PhysicalNode') || (result['type']==='sys:NetworkDevice')|| (result['type']==='sys:StorageAppliance')|| (result['type']==='sys:UPS')">
+             <strong>Description:&nbsp;&nbsp;</strong>{{result["sys:description"]}}<br>
+             <strong>Manufacturer:&nbsp;&nbsp;</strong>{{result["tag:manufacturer"]}}<br>
+             <strong>Model Name:&nbsp;&nbsp;</strong>{{result["tag:modelName"]}}<br>
+             <!--<a [routerLink]="['/inventories',result.id,'details']" title="Detail"> <strong>Detail</strong> </a>
+             <br><img src="./assets/images/Delete-icon.png" align="left"> <a title="Delete ">&nbsp;Delete<br><br></a>        -->
+           </div> 
+           <div *ngIf="result['type']==='doc:File'">
+             <strong>File Size:&nbsp;&nbsp;</strong>{{result["doc:fileSize"]}}&nbsp;bytes<br>
+             <strong>File Type:&nbsp;&nbsp;</strong>{{result["doc:fileType"]}}<br>
+             <strong>Description:&nbsp;&nbsp;</strong>{{result["doc:fileDescription"]}}<br>
+
+             <!-- THIS IS A TEMPORARY SOLUTION THAT NEEDS TO BE FIXED ASAP!!!!! -->
+             <br><a href='{{service_url}}download/{{result["doc:fileName"]}}' title="Dowload File"><img src="./assets/images/download-cloud.png">&nbsp;Download</a><br> 
+             <!-- THIS IS A TEMPORARY SOLUTION THAT NEEDS TO BE FIXED ASAP!!!!! -->
+           </div> 
+           
+           <a routerLink="deleteVM" routerLinkActive="active" *ngIf="result['sys:deleteProtect']==='false' && result['sys:isOrphaned']==='false'" on-click="deleteVirtualNode(result)" title="Delete VM"><br><img src="./assets/images/Delete-icon.png" align="left">&nbsp;Delete VM<br><br></a>  
+           <a routerLink="deleteVM" routerLinkActive="active" *ngIf="result['sys:isOrphaned']==='true'" on-click="deleteVirtualNodeDB(result)" title="Delete From Database"><br><img src="./assets/images/Delete-icon.png" align="left">&nbsp;Delete from DB<br><br></a>   
+           
+         </span>
+      </li>
+    </ul>
+     <hr>
+     <pagination-controls (pageChange)="p = $event"></pagination-controls>
+     <hr>
+    <br><br><br><br><br>
+   
+    
+  </div>
+
+ 
+</div>

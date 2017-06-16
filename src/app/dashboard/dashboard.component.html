@@ -1,0 +1,16 @@
+<div class="container-fluid">
+  <div class= "column-center">
+      <h3>Zero2Cloud Dashboard</h3>
+      <p>...at a glance...</p>
+      <div style="display: block">
+          <canvas baseChart
+              [data]="polarAreaChartData"
+              [labels]="polarAreaChartLabels"
+              [legend]="polarAreaLegend"
+              [chartType]="polarAreaChartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)">
+          </canvas>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <div class= "column-center">
+<hr>
+A Virtual Node is being removed!
+<br><br><br>
+<ul class="inventory">
+      <li class="virtualnodes" *ngFor="let virtualNode of virtualNodes">
+         <span class="badgevm">{{virtualNode["sys:fqdn"]}}</span>
+         <br>
+         <span class=badgevmdata>
+           <strong>Type:&nbsp;&nbsp;</strong>Virtual Machine<br>
+           <strong>id:&nbsp;&nbsp;</strong>{{virtualNode.id}}<br>
+           <strong>CPUs:&nbsp;&nbsp;</strong>{{virtualNode["tag:cpus"]}}<br>
+           <strong>Memory:&nbsp;&nbsp;</strong>{{virtualNode["tag:memory"]}}<br>
+         </span>
+      </li>
+</ul>
+<br><br><br>
+<button (click)="goBack()">Back to Inventory</button>
+<hr>
+<div *ngIf="serverResp">
+    <h3>Server Response</h3>
+    {{serverResp}}
+</div>
+</div>
+</div>

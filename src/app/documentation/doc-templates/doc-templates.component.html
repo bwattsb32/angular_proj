@@ -1,0 +1,37 @@
+<div class="container-fluid">
+    <div class="column-center">
+        <h3>Documentation > Document Templates</h3>
+        <hr>
+        <div *ngIf="loading"><img src="./assets/images/loader.gif">{{waitMessage}}</div>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <hr>
+        <ul class="inventory">
+            <li class="noimage" *ngFor="let result of docTemplates | paginate: { itemsPerPage: 10, currentPage: p }">
+                <span class="badge">{{result["rdfs:label"]}}</span>
+                <br>
+                <img src="./assets/images/doctemplates.png">
+                <br>
+                <span *ngIf='result["rdfs:label"] === "SSP Structure 1.0" || result["rdfs:label"] === "Plan of Action and Milestones 1.0" ' class=badgeDetail>
+                    <a routerLink='{{result["rdfs:label"]}}' title="Generate Word Document">
+                        <img src="./assets/images/document_add.png">Generate Document
+                    </a>
+                    <br> 
+                </span>
+                <span *ngIf='result["rdfs:label"] === "Boundary Matrix 1.0"  ' class=badgeDetail>
+                    <a routerLink='{{result["rdfs:label"]}}_HW' title="Generate Word Document">
+                        <img src="./assets/images/document_add.png">Generate Hardware Document
+                    </a>
+                    <br> 
+                    <a routerLink='{{result["rdfs:label"]}}_SW' title="Generate Word Document">
+                        <img src="./assets/images/document_add.png">Generate Software Document
+                    </a>
+                    <br> 
+                </span>
+            </li>
+        </ul>
+        <hr>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <hr>
+        <br><br><br><br><br>
+    </div>
+</div>

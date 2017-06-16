@@ -1,0 +1,55 @@
+<div class="container-fluid">
+  <div class="column-center">
+    <br/><br/>
+    <h3>Add Hardware</h3>
+    <br/>
+    <form (ngSubmit)="submit()" #hardwareForm="ngForm" class="form" novalidate>
+      <div class="form-group">
+        <label>Device Type</label>
+        <select name="selectDeviceType" class="form-control" [(ngModel)]="hardware['sys:deviceType']" required>
+          <option *ngFor="let deviceType of deviceTypes"   [value]="deviceType['skos:prefLabel']">{{deviceType['skos:prefLabel']}}</option>
+      </select>
+      </div>
+      <div class="form-group">
+        <label>Preferred Label</label>
+        <input type="text" class="form-control" name="prefLabel" [(ngModel)]="hardware['skos:prefLabel']" #prefLabel="ngModel" required>
+        <div class="alert alert-danger" [hidden]="prefLabel.pristine || prefLabel.valid">pref. Label is required</div>
+      </div>
+      <div class="form-group">
+        <label>Alternate Label</label>
+        <input type="text" class="form-control" name="altLabel" [(ngModel)]="hardware['skos:altLabel']" #altLabel="ngModel" required>
+        <div class="alert alert-danger" [hidden]="altLabel.pristine || altLabel.valid">alt Label is required</div>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" class="form-control" name="description" [(ngModel)]="hardware['sys:description']" #description="ngModel"
+          required>
+        <div class="alert alert-danger" [hidden]="description.pristine || description.valid">Description is required</div>
+      </div>
+      <div class="form-group">
+        <label>Manufacturer</label>
+        <input type="text" class="form-control" name="manufacturer" [(ngModel)]="hardware['tag:manufacturer']" #manufacturer="ngModel" required>
+        <div class="alert alert-danger" [hidden]="manufacturer.pristine || manufacturer.valid">Model name is required</div>
+      </div>
+   
+      <div class="form-group">
+        <label>Model Name</label>
+        <input type="text" class="form-control" name="modelName" [(ngModel)]="hardware['tag:modelName']" #modelName="ngModel" required>
+        <div class="alert alert-danger" [hidden]="modelName.pristine || modelName.valid">Model name is required</div>
+      </div>
+   
+
+      
+
+      <div *ngIf="hardware">
+        <span *ngIf="!deleteMessageEnabled">
+        <button class="btn btn-default" (click)="cancel($event)">Cancel</button>&nbsp;&nbsp;
+        <button type="submit" class="btn btn-success" [disabled]="hardwareForm.pristine || !hardwareForm.valid">{{ operationText }}</button>
+      </span>
+      </div>
+      <div class="alert alert-danger" *ngIf="errorMessage != null">{{ errorMessage }}</div>
+    </form>
+
+    <br />
+  </div>
+</div>
